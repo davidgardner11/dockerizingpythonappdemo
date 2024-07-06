@@ -1,5 +1,4 @@
-# Based on sample JSON file from https://jsoneditoronline.org/indepth/datasets/json-file-example/
-import requests, json
+import json, requests
 
 city_normalizations = {
     'manhattan': 'New York'
@@ -15,6 +14,10 @@ def get_json_file(url):
         
         # Parse the content as JSON
         json_data = json.loads(response.text)
+
+        # list
+        for i in json_data:
+            print(i)  
 
         return json_data
     except requests.exceptions.RequestException as e:
@@ -47,6 +50,5 @@ def save_transformed_data(save_dict):
 #    return
 
 if __name__ == '__main__':
+    # json_ret = get_json_file('https://gist.github.com/davidgardner11/3d1890a49c3bee2661ab29d6ad6bb7ce')
     json_ret = get_json_file("https://gist.githubusercontent.com/davidgardner11/3d1890a49c3bee2661ab29d6ad6bb7ce/raw/6410edc6993fa2169dfa217dd382e68cb7f9a46f/data.json")
-    new_dict = transform_json_file(json_ret)
-    save_transformed_data(new_dict)
