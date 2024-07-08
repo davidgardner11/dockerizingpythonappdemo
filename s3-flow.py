@@ -6,8 +6,9 @@ city_normalizations = {
     'manhattan': 'New York'
 }
 
-# Reads the JSON file from a public URL 
-@task
+# Reads the JSON file from a public URL
+# Prefect will automatically try and fetch this file three times before giving up.  
+@task(retries=2, retry_delay_seconds=5)
 def get_json_file(url):
     try:
         # Download the file content from the URL
@@ -49,6 +50,7 @@ def save_transformed_data(save_dict):
         # Save to DB - step omitted for ease of tutorial
 
 #    return
+
 @Flow
 def process_cities_data():
     json_ret = get_json_file("https://gist.githubusercontent.com/davidgardner11/3d1890a49c3bee2661ab29d6ad6bb7ce/raw/6410edc6993fa2169dfa217dd382e68cb7f9a46f/data.json")

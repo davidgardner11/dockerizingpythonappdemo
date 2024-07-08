@@ -15,4 +15,4 @@ WORKDIR /usr/src/app
 RUN pip install -r requirements.txt
 
 # Specifies the command that your container will run on startup. In other words, when your container starts running, it’ll run your Python application to perform your data transformation workload.
-CMD ["python", "./s3-flow.py"]
+CMD ["python", "s3-flow.py"]
