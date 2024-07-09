@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-python-demo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: app
+  template:
+    metadata:
+      labels:
+        service: app
+    spec:
+      containers:
+       - name: app-service
+         image: davidgardner11/dockerizingpythonappdemo  # dockerhub username/docker repo
+         imagePullPolicy: Always
+        #  env:
+        #   - name: POSTGRES_PASSWORD
+        #     value: mysecretpassword
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    service: app
+  ports:
+  - port: 8001
+    targetPort: 8001
+    nodePort: 30001
